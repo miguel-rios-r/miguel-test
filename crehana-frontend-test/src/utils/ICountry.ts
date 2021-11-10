@@ -23,3 +23,7 @@ export interface IEvent {
 export interface IInputValue {
     value: String
 }
+
+export interface ICurrency {
+    currency: String
+}

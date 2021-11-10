@@ -1,4 +1,4 @@
-import { IContinent, ICountry } from "./ICountry";
+import { IContinent, ICountry, ICurrency } from "./ICountry";
 
 export const baseCountry: ICountry = {
     name: '',
@@ -13,3 +13,5 @@ export const baseCountry: ICountry = {
 export const baseCountries: ICountry[] = [ baseCountry ]
 
 export const baseContinets: IContinent[] = [ { name: "" } ]
+
+export const baseCurrencies: ICurrency[] = [ { currency: "USD" }, { currency: "EUR" }, { currency: "TRY" } ]

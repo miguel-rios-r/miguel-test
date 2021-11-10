@@ -46,12 +46,27 @@ function Countries() {
 
     }
 
+    const filterByCurrency = ( e: IEvent ) => {
+        
+        const currencyToSearch: String = (e.target.value).toLowerCase()
+        
+        if ( currencyToSearch === "all" ) {
+            setCountries(data.countries)
+            return
+        }
+
+        const results: ICountry[] = data.countries.filter( (country: ICountry) => currencyToSearch === (country.currency || '').toLowerCase() )
+        
+        setCountries(results)
+
+    }
+
     return(
         <>
             <NavWrapper>
                 <Title>Countries</Title>
             </NavWrapper>
-            <Search searchChange={searchChange} filterByContinent={filterByContinent} />
+            <Search searchChange={searchChange} filterByContinent={filterByContinent} filterByCurrency={filterByCurrency} />
             <Outlet/>
             <ContentWrapper>
                 {   

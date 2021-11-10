@@ -23,3 +23,11 @@ export const LOAD_CONTINENTS = gql`
         }
     }
 `
+
+export const LOAD_CURRENCIES = gql`
+    {
+        countries {
+            currency
+        }
+    }
+`

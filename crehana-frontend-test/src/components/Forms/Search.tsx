@@ -1,42 +1,23 @@
-import { useQuery } from "@apollo/client"
-import React, { useEffect, useState } from "react"
-import { LOAD_CONTINENTS } from '../../GraphQL/Queries'
+import React from "react"
 import { ItemWrapper, MainInput } from "../../theme/Styles"
-import { baseContinets } from "../../utils/baseData"
-import { IContinent } from "../../utils/ICountry"
+import FilterByContinent from "./Filters/FilterByContinent"
+import FilterByCurrency from "./Filters/FilterByCurrency"
 
 interface ISearch{
     searchChange: any,
-    filterByContinent: any
+    filterByContinent: any,
+    filterByCurrency: any
 }
 
-function Search ( { searchChange, filterByContinent }: ISearch ) {
-
-    const { error, loading, data } = useQuery( LOAD_CONTINENTS )
-    const [ allContinents, setContinents ] = useState( baseContinets )
-
-    useEffect( () => {
-        if ( data ) {
-            setContinents(data.continents)
-        }
-    }, [data] )
+function Search ( { searchChange, filterByContinent, filterByCurrency }: ISearch ) {
 
     return(
         <>
             <br/>
             <ItemWrapper>
-                <MainInput placeholder='Type a country name or country code' onChange={searchChange}/>
-                <br/>
-                <label htmlFor="filter-by-continent">Filter by continent </label>
-                <select label-id="filter-by-continent" onChange={filterByContinent}>
-                    <option value="all" key="all" selected>All</option>
-                    { allContinents.map( ( continent:IContinent ) => {
-                        return(
-                            <option value={continent.name.toLocaleLowerCase()} key={continent.name.toLocaleLowerCase()} >{continent.name}</option>
-                        )
-                    }) }
-                </select>
-                
+                <MainInput placeholder='Type a country name or country code' onChange={ searchChange }/>
+                <FilterByContinent  filterByContinent={ filterByContinent } />
+                <FilterByCurrency filterByCurrency={ filterByCurrency }/>
             </ItemWrapper>
         </>
     )
