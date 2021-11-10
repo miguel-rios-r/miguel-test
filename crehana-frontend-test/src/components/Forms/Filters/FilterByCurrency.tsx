@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client"
 import React, { useEffect, useState } from "react"
-import { LOAD_CURRENCIES } from '../../../GraphQL/Queries'
+import { LOAD_COUNTRIES, LOAD_CURRENCIES } from '../../../GraphQL/Queries'
 import { baseCurrencies } from "../../../utils/baseData"
 import { ICurrency } from "../../../utils/ICountry"
 
@@ -12,16 +12,12 @@ function FilterByCurrency ( { filterByCurrency }: IFilterByCurrency ) {
 
     const { error, loading, data } = useQuery( LOAD_CURRENCIES )
     const [ allCurrencies, setCurrencies ] = useState( baseCurrencies )
-
-    useEffect( () => {
-        
-        if ( data ) {
+    
+    useEffect( () => {    
+        if (!loading) {
             setCurrencies(data.countries)
         }
-
     }, [] )
-
-    console.log(allCurrencies)
 
     return(
         <>
