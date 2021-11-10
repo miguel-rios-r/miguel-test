@@ -1,7 +1,9 @@
 import { gql, useQuery } from '@apollo/client';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { ICountry, ILang } from '../utils/ICountry';
 import { NavWrapper, Title } from '../theme/Styles'
+import { baseCountry } from '../utils/baseData';
 
 function Country( ) {
     let { countryId } = useParams();
@@ -22,15 +24,7 @@ function Country( ) {
         }
     }`)
 
-    const [ country, setCountry ] = useState({
-        name: '',
-        code: '',
-        currency: '',
-        continent: {name: ''},
-        languages: [{name: 'ES'}],
-        capital: '',
-        emoji: ''
-    })
+    const [ country, setCountry ] = useState( baseCountry )
 
     useEffect( () => {
         console.log(data)
@@ -54,7 +48,7 @@ function Country( ) {
                                 <br/>
                                 <b>Continent {'======>'}</b> { country.continent.name }
                                 <br/>
-                                <b>Languages {'=====>'}</b> { country.languages.map( (lang) => <span>{lang.name} </span> )  }
+                                <b>Languages {'=====>'}</b> { country.languages.map( ( lang: ILang ) => <span>{lang.name} </span> )  }
                                 <br/>
                             </p>
                         </Title>

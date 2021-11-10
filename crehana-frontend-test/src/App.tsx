@@ -1,20 +1,7 @@
 import React, { useState } from 'react'
 import { ThemeProvider } from 'styled-components'
-import { 
-    BrowserRouter as Router, 
-    Routes, 
-    Route, 
-    Link, 
-    Outlet 
-} from 'react-router-dom'
-import {
-    ApolloClient,
-    InMemoryCache,
-    ApolloProvider,
-    HttpLink,
-    from
-} from '@apollo/client'
-import { onError } from '@apollo/client/link/error'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from } from '@apollo/client'
 
 import { light, dark } from './theme'
 import { AppWrapper } from './theme/Styles'
@@ -25,13 +12,6 @@ import Home from './screens/Home'
 import Country from './screens/Country'
 import NotFound from './screens/NotFound'
 
-// const errorLink = onError(({graphqlErrors, networkError}) => {
-//     if ( graphqlErrors ) {
-//         graphqlErrors.map( ({message: any, location: any, path: any}) => {
-//             alert(`GraphQL error ${message}`)
-//         } )
-//     }
-// })
 
 const link = from([
     new HttpLink({uri: 'https://countries.trevorblades.com/'})
@@ -66,11 +46,5 @@ const App: React.FC = () => {
         </ApolloProvider>
     )
 }
-
-// function CountryDetail(){
-//     return(
-//         <p>Detail</p>
-//     )
-// }
 
 export default App

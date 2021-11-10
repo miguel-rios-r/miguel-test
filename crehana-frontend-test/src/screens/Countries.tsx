@@ -4,11 +4,13 @@ import { ContentWrapper, NavWrapper, Title, ItemWrapper } from '../theme/Styles'
 import { useQuery } from '@apollo/client'
 import { LOAD_COUNTRIES } from '../GraphQL/Queries'
 import Search from '../components/Forms/Search'
+import { ICountry, IEvent } from '../utils/ICountry'
+import { baseCountries } from '../utils/baseData'
 
 function Countries() {
 
     const { error, loading, data } = useQuery( LOAD_COUNTRIES )
-    const [ allCountries, setCountries ] = useState([])
+    const [ allCountries, setCountries ] = useState( baseCountries )
 
     useEffect( () => {
         if ( data ) {
@@ -16,10 +18,10 @@ function Countries() {
         }
     }, [data] )
 
-    const searchChange = ( e: any ) => {
+    const searchChange = ( e: IEvent ) => {
         
-        const countryToSearch: String = (e.target.value).toLowerCase();
-        const results = data.countries.filter( (country:any) => countryToSearch === country['name'].toLowerCase() || countryToSearch === country['code'].toLowerCase() )
+        const countryToSearch: String = (e.target.value).toLowerCase()
+        const results: ICountry[] = data.countries.filter( ( country: ICountry ) => countryToSearch === country.name.toLowerCase() || countryToSearch === country.code.toLowerCase() )
         
         if ( results.length > 0 ) {
             setCountries(results)
@@ -29,16 +31,16 @@ function Countries() {
 
     }
 
-    const filterByContinent = async ( e: any ) => {
+    const filterByContinent = ( e: IEvent ) => {
         
-        const continentToSearch = e.target.value
+        const continentToSearch: String = (e.target.value).toLowerCase()
         
         if ( continentToSearch === "all" ) {
             setCountries(data.countries)
             return
         }
 
-        const results = data.countries.filter( (country:any) => continentToSearch === country['continent']['name'] )
+        const results: ICountry[] = data.countries.filter( (country: ICountry) => continentToSearch === (country.continent.name).toLowerCase() )
         
         setCountries(results)
 
